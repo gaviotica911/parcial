@@ -1,0 +1,33 @@
+body {
+  background-color: white;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.row,
+.col {
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-card {
+  position: relative;
+  color: white;
+  overflow: hidden;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+.card-content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}

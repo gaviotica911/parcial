@@ -1,0 +1,19 @@
+{
+  "LogIn": "Iniciar sesión",
+  "Email": "Correo electrónico",
+  "Password": "Contraseña",
+  "Cycling": "Ciclismo",
+  "Running": "Correr",
+  "Swimming": "Natación",
+  "Cycling session": "Sesión de ciclismo",
+  "Running session": "Sesión de correr",
+  "Swimming session": "Sesión de natación",
+  "Form submitted successfully!": "¡Formulario enviado con éxito!",
+  "Form submission failed due to validation errors.": "La presentación del formulario falló debido a errores de validación.",
+  "Session Detail": "Detalles de la sesión",
+  "Tour around ": "Recorrido alrededor de ",
+  "Email is required": "Correo electrónico es requerido",
+  "Email format is invalid": "Formato de correo electrónico es inválido",
+  "Password is required": "Contraseña es requerida",
+  "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres"
+}

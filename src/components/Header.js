@@ -1,65 +1,56 @@
 import React from "react";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-} from "mdb-react-ui-kit";
+import { Container, Row, Col } from "react-bootstrap";
+import "./Header.css";
 
 function Header({ prop }) {
   if (!prop) {
     return <p>Loading...</p>;
   }
-  console.log(prop);
   return (
-    <div>
-      <MDBContainer>
-        <MDBRow className="justify-content-center">
-          <MDBCol className="mt-5">
-            <MDBCard style={{ borderRadius: "15px" }}>
-              <MDBCardBody className="p-4">
-                <div className="d-flex text-black">
-                  <div className="flex-shrink-0">
-                    <MDBCardImage
-                      style={{ width: "180px", borderRadius: "10px" }}
-                      src={prop.pppic}
-                      alt="Generic placeholder image"
-                      fluid
-                    />
-                  </div>
-                  <div className="flex-grow-1 ms-3">
-                    <MDBCardText>{prop.fullname}</MDBCardText>
-
-                    <div
-                      className="d-flex justify-content-start rounded-3 p-2 mb-2"
-                      style={{ backgroundColor: "#efefef" }}
-                    >
-                      <div>
-                        <p className="small text-muted mb-1">bestTimeR</p>
-                        <p className="mb-0">{prop.bestTimeR}</p>
-                      </div>
-                      <div className="px-3">
-                        <p className="small text-muted mb-1">bestTimeS</p>
-                        <p className="mb-0">{prop.bestTimeS}</p>
-                      </div>
-                      <div>
-                        <p className="small text-muted mb-1">bestTimeC</p>
-                        <p className="mb-0">{prop.bestTimeC}</p>
-                      </div>
-                    </div>
-                    <div className="d-flex pt-1"></div>
-                  </div>
-                </div>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+    <div className="header-container">
+      <Container>
+        <Row>
+          <Col>
+            <img src={prop.pppic} alt="profile" className="profile-pic" />
+          </Col>
+          <Col>
+            <h1>{prop.fullname}</h1>
+          </Col>
+          <Col>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Running_icon_-_Noun_Project_17825.svg/1024px-Running_icon_-_Noun_Project_17825.svg.png"
+              alt="run"
+              className="icon"
+            />
+          </Col>
+          <Col>
+            <h2>{prop.bestTimeR} mins</h2>
+          </Col>
+          <Col>
+            {" "}
+            <img
+              src="https://www.svgrepo.com/show/103297/swimming.svg"
+              alt="swim"
+              className="icon"
+            />
+          </Col>
+          <Col>
+            <h2>{prop.bestTimeS} mins</h2>
+          </Col>
+          <Col>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/923/923743.png"
+              alt="bike"
+              className="icon"
+            />
+          </Col>
+          <Col>
+            <h2>{prop.bestTimeC} mins</h2>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
+
 export default Header;

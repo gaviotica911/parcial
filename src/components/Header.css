@@ -1,0 +1,23 @@
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.header-container {
+  padding: 20px;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.row {
+  justify-content: center;
+  align-items: center;
+}
+
+.col {
+  justify-content: center;
+  align-items: center;
+}

@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import "./Login.css";
+import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
+function Login({ onLogin }) {
+  const navigate = useNavigate();
+  const intl = useIntl();
 
-function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,9 +29,15 @@ function Login() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted successfully!");
+      alert(intl.formatMessage({ id: "Form submitted successfully!" }));
+      onLogin();
+      navigate("/home");
     } else {
-      console.log("Form submission failed due to validation errors.");
+      alert(
+        intl.formatMessage({
+          id: "Form submission failed due to validation errors.",
+        })
+      );
     }
   };
 
@@ -33,28 +45,33 @@ function Login() {
     const errors = {};
 
     if (!data.email.trim()) {
-      errors.email = "Email is required";
+      errors.email = intl.formatMessage({ id: "Email is required" });
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errors.email = "Email format is invalid";
+      errors.email = intl.formatMessage({ id: "Email format is invalid" });
     }
 
     if (!data.password.trim()) {
-      errors.password = "Password is required";
+      errors.password = intl.formatMessage({ id: "Password is required" });
     } else if (data.password.length < 8) {
-      errors.password = "Password must be at least 8 characters long";
+      errors.password = intl.formatMessage({
+        id: "Password must be at least 8 characters long",
+      });
     }
 
     return errors;
   };
 
   return (
-    <Card id="card">
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label className="form-label">Email:</label>
-            <br></br>
-            <input
+    <div className="login-container">
+      <div id="f">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <h1>
+              <FormattedMessage id="LogIn" />
+            </h1>
+
+            <FormattedMessage id="Email" />
+            <Form.Control
               className="form-input"
               type="text"
               name="email"
@@ -64,10 +81,11 @@ function Login() {
             {errors.email && (
               <span className="error-message">{errors.email}</span>
             )}
-            <br></br>
-            <label className="form-label">Password:</label>
-            <br></br>
-            <input
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <FormattedMessage id="Password" />
+            <Form.Control
               className="form-input"
               type="password"
               name="password"
@@ -77,15 +95,14 @@ function Login() {
             {errors.password && (
               <span className="error-message">{errors.password}</span>
             )}
-            <br></br>
-          </div>
-          <br></br>
-          <button className="submit-button" type="submit">
-            Submit
-          </button>
-        </form>
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Log In
+          </Button>
+        </Form>
       </div>
-    </Card>
+    </div>
   );
 }
 

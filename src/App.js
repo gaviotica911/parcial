@@ -1,35 +1,58 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Header from "./components/Header";
-import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const [prop, setProp] = useState(null);
-  const fetchApi = async () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const fetchApi1 = async () => {
+    try {
+      const response = await fetch(
+        "https://my.api.mockaroo.com/times.json?key=5c07ee00"
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return [];
+    }
+  };
+
+  const fetchApi2 = async () => {
     try {
       const response = await fetch(
         "https://my.api.mockaroo.com/info_usuario.json?key=5c07ee00"
       );
       const data = await response.json();
-      const randomId = Math.floor(Math.random() * data.length);
-      setProp(data[randomId]);
+      return data;
     } catch (error) {
-      console.error("Error fetching character:", error);
+      console.error("Error fetching data:", error);
+      return [];
     }
   };
 
-  useEffect(() => {
-    fetchApi();
-  }, []);
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
 
   return (
-    <div className="App">
-      <Home />
-      <Login />
-      <Header prop={prop} />
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/home"
+          element={
+            <Home
+              isAuthenticated={isAuthenticated}
+              fetchApi1={fetchApi1}
+              fetchApi2={fetchApi2}
+            />
+          }
+        />
+        <Route path="/" element={<Login onLogin={handleLogin} />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,128 +1,122 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import "./Home.css";
+import Header from "./Header";
+import { FormattedMessage } from "react-intl";
 
-function Home() {
+function Home({ isAuthenticated, fetchApi1, fetchApi2 }) {
   const [showModal, setShowModal] = useState(false);
   const [carrera, setCarrera] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
-
-  const fetchApi = async () => {
-    try {
-      const response = await fetch(
-        "https://my.api.mockaroo.com/times.json?key=5c07ee00"
-      );
-      const data = await response.json();
-      setCarrera(data);
-    } catch (error) {
-      console.error("Error fetching character:", error);
-    }
-  };
+  const [selectedProfile, setSelectedProfile] = useState("");
+  const [img, setImg] = useState("");
 
   useEffect(() => {
-    fetchApi();
-  }, []);
+    if (isAuthenticated) {
+      fetchApi1().then((data1) => setCarrera(data1));
+      fetchApi2().then((data2) => setSelectedProfile(data2));
+    }
+  }, [isAuthenticated, fetchApi1, fetchApi2]);
 
-  const cycling = carrera.filter((item) => item.type === 0);
-  const running = carrera.filter((item) => item.type === 1);
-  const swimming = carrera.filter((item) => item.type === 2);
-  const handleImageClick = (i) => {
+  console.log(selectedProfile);
+
+  const cycling = carrera.filter((item) => item.type === 0).slice(0, 10);
+  const running = carrera.filter((item) => item.type === 1).slice(0, 10);
+  const swimming = carrera.filter((item) => item.type === 2).slice(0, 10);
+
+  const handleImageClick = (i, img) => {
     setSelectedImage(i);
     setShowModal(true);
+    setImg(img);
   };
 
   const handleCloseModal = () => setShowModal(false);
+
+  const renderCards = (items, title, img) => (
+    <Col className="p-3">
+      <h1 style={{ alignItems: "center" }}>
+        <FormattedMessage id={title} />
+      </h1>
+      <Row className="flex-wrap">
+        {items.map((i, index) => (
+          <Col key={index} xs={12} md={6} className="mb-4 d-flex">
+            <Card
+              style={{
+                width: "100%",
+                backgroundImage: `url(${img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                color: "white",
+              }}
+              onClick={() => handleImageClick(i, img)}
+            >
+              <Card.Body>
+                <Card.Title>
+                  <FormattedMessage id={`${title} session`} />
+                </Card.Title>
+
+                <Card.Text>
+                  <FormattedMessage id="Tour around " /> {i.city}
+                </Card.Text>
+                <Card.Text>
+                  {i.distance} km - {i.time} mins
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Col>
+  );
+
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col>
-            <h1>Cycling</h1>
-            <ul>
-              {cycling.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-          </Col>
-          <Col>
-            <h1>Running</h1>
-            <ul>
-              {running.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-          </Col>
-          <Col>
-            <h1>Swimming</h1>
-            <ul>
-              {swimming.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-          </Col>
-        </Row>
-      </Container>
-
-      <Container>
-        <Row>
-          {cycling.map((i, index) => (
-            <Col key={index} xs={6} md={4} className="mb-4">
-              <Card style={{ width: "18rem" }} id="cycling">
-                <Card.Body>
-                  <Card.Title>Cycling session</Card.Title>
-                  <Card.Text>Recorrido al rededor de {i.city}</Card.Text>
-                  <Card.Text>
-                    {i.distance} km - {i.time} mins
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        <Row>
-          {running.map((i, index) => (
-            <Col key={index} xs={6} md={4} className="mb-4">
-              <Card
-                style={{ width: "18rem" }}
-                id="running"
-                onClick={() => handleImageClick(i)}
-              >
-                <Card.Body>
-                  <Card.Title>Running session</Card.Title>
-                  <Card.Text>Recorrido al rededor de {i.city}</Card.Text>
-                  <Card.Text>
-                    {i.distance} km - {i.time} mins
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        <Row>
-          {swimming.map((i, index) => (
-            <Col key={index} xs={6} md={4} className="mb-4">
-              <Card style={{ width: "18rem" }} id="swimming">
-                <Card.Body>
-                  <Card.Title>Swimming session</Card.Title>
-                  <Card.Text>Recorrido al rededor de {i.city}</Card.Text>
-                  <Card.Text>
-                    {i.distance} km - {i.time} mins
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+    <body>
+      <div className="home-container">
+        <Container fluid className="main-container">
+          <Row className="justify-content-around">
+            {renderCards(
+              cycling,
+              "Cycling",
+              "https://i.ytimg.com/vi/2JwjHAaf4RE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCA0fiSkahAGQbJ5Uy1KBoKfWPZwQ"
+            )}
+            {renderCards(
+              running,
+              "Running",
+              "https://images.unsplash.com/photo-1486218119243-13883505764c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHJ1bm5pbmd8ZW58MHx8MHx8fDA%3D"
+            )}
+            {renderCards(
+              swimming,
+              "Swimming",
+              "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            )}
+          </Row>
+        </Container>
 
         <Modal show={showModal} onHide={handleCloseModal} centered>
-          <Modal.Body className="d-flex justify-content-center align-items-center p-0">
-            <Card style={{ width: "18rem" }} id={selectedImage.type}>
+          <Modal.Body
+            className="d-flex justify-content-center align-items-center p-0"
+            style={{
+              color: "white",
+            }}
+          >
+            <Card
+              style={{
+                width: "100%",
+                backgroundImage: `url(${img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                color: "white",
+              }}
+            >
               <Card.Body>
-                <Card.Title>Swimming session</Card.Title>
+                <Card.Title>
+                  <FormattedMessage id="Session Detail" />
+                </Card.Title>
                 <Card.Text>
-                  Recorrido al rededor de {selectedImage.city}
+                  <FormattedMessage id="Tour around " /> {selectedImage.city}
                 </Card.Text>
                 <Card.Text>
                   {selectedImage.distance} km - {selectedImage.time} mins
@@ -131,8 +125,9 @@ function Home() {
             </Card>
           </Modal.Body>
         </Modal>
-      </Container>
-    </div>
+        <Header prop={selectedProfile[0]} />
+      </div>
+    </body>
   );
 }
 
