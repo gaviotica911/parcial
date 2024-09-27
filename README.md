@@ -1,70 +1,7 @@
-# Getting Started with Create React App
+# Ejecución del parcial:
+Al ejecutar el proyecto, lo primero que se será la pantalla de LogIn. Para ingresar debes escribir un correo valido, es decir con el formato algo@correo.algo, y la contraseña es de minimo 8 caracteres. Si esto no se cumple, saldrá una alerta mencioanndo que no se pudo ingresas, al aceptar, saldrán los errores correspondientes. Si ingresas un formato valido, saldrá una alerta mensinando un ingreso exitoso. Al aceptar te llevará a la pestaña de Home. Podrá ver 10 sesiones de cada deporte, especificando los datos. Le podrá dar click para ampliar la sesión. Para cerrar el detalle, puedes dar click en cualqioer otro lugar. EN la parte inferior esta la información del usuario.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Componentes:
+El proyecto cuenta con 3 componentes: LogIn, Home y Header. 
+Para el LogIn, la ruta es la princiál, es decir la vacia, y para poder dirigirse a home, es mediante el boton de ingresar. Este componente fue creado mediante una card de boostrap. Las verificaciones se hicieron de la siguiente forma:
+  - Los datos de ingreso su guardan en una variable de estado, para poder actializarlo cuando el usuario ingresa un valor, para así poder verificarlo. Esto mediante la función de handleChange. Ahora, con handleSubmit, verificaremos el formato de los inputs. Esta verifica y si hay errores y da el acceso mediante otra función, que se pasa por parametro desde App, si el acceso es correcto o no lo alerta, adem'as llama a la función que verifica si hay errores, esta los guarda en otra varibale de estado de errores, para que se puedan visualizar una vez se intente ingresar. 
