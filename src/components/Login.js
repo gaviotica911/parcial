@@ -98,7 +98,7 @@ function Login({ onLogin }) {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Log In
+            <FormattedMessage id="LogIn" />
           </Button>
         </Form>
       </div>
